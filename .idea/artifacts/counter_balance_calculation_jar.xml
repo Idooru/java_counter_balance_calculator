@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="counter_balance_calculation:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/counter_balance_calculation_jar</output-path>
+    <root id="archive" name="counter_balance_calculation.jar">
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/META-INF/MANIFEST.MF" />
+      </element>
+    </root>
+  </artifact>
+</component>
