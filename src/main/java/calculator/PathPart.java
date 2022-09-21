@@ -16,8 +16,7 @@ public class PathPart {
     void createLogDirectory() {
         try {
             Files.createDirectory(Path.of(desktopPath));
-        } catch (FileAlreadyExistsException e) {
-            System.out.println("log 디렉터리가 이미 존재합니다.");
+        } catch (FileAlreadyExistsException ignored) {
         } catch (NoSuchFileException e) {
             System.out.println("디렉터리 경로가 존재하지 않습니다.");
         } catch (IOException e) {
@@ -46,30 +45,35 @@ public class PathPart {
         try {
             String timeFormat = year + "년-" + month + "월-" + day + "일-" + hour + "시-" + minute + "분-" + second + "초 실행 기록";
             File file = new File(desktopPath + "\\" + timeFormat + ".txt");
-            file.createNewFile();
+            boolean result = file.createNewFile();
 
-            FileWriter fw = new FileWriter(file);
-            BufferedWriter writer = new BufferedWriter(fw);
+            if (result) {
+                FileWriter fw = new FileWriter(file);
+                BufferedWriter writer = new BufferedWriter(fw);
 
-            String log = String.format(
-                    "50000 x %d = %d\n"
-                            + "10000 x %d = %d\n"
-                            + "5000 x %d = %d\n"
-                            + "1000 x %d = %d\n"
-                            + "500 x %d = %d\n"
-                            + "100 x %d = %d\n"
-                            + "%s",
-                    fiftyThousandCount, moneys[0],
-                    tenThousandCount, moneys[1],
-                    fiveThousandCount, moneys[2],
-                    oneThousandCount, moneys[3],
-                    fiveHundredCount, moneys[4],
-                    oneHundredCount, moneys[5],
-                    totalAmount
-            );
+                String log = String.format(
+                        "50000 x %d = %d\n"
+                                + "10000 x %d = %d\n"
+                                + "5000 x %d = %d\n"
+                                + "1000 x %d = %d\n"
+                                + "500 x %d = %d\n"
+                                + "100 x %d = %d\n"
+                                + "%s",
+                        fiftyThousandCount, moneys[0],
+                        tenThousandCount, moneys[1],
+                        fiveThousandCount, moneys[2],
+                        oneThousandCount, moneys[3],
+                        fiveHundredCount, moneys[4],
+                        oneHundredCount, moneys[5],
+                        totalAmount
+                );
 
-            writer.write(log);
-            writer.close();
+                writer.write(log);
+                writer.close();
+            } else {
+                throw new Exception();
+            }
+
 
         } catch (IOException e) {
             System.out.println("뜻밖의 에러가 발생하였습니다. 관리자에게 문의하세요.");
